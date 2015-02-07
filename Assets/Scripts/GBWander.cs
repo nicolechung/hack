@@ -8,7 +8,7 @@ public class GBWander : MonoBehaviour {
 	public float collisionDistance = 10;
 	public float speed = 1;
 
-	private static bool DEBUG = true;
+	private static bool DEBUG = false;
 	private static bool DEBUG_DRAW = false;
 
 	public int LayerToMask = 5; /* other towel men on this layer, they avoid each other */
