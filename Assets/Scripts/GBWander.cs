@@ -5,29 +5,26 @@ public class GBWander : MonoBehaviour {
 
 	private bool flag; // make it only call once
 
-	public float collisionDistance = 2;
-	public float speed = 50;
+	public float collisionDistance = 10;
+	public float speed = 1;
 
 	private static bool DEBUG = true;
 	private static bool DEBUG_DRAW = false;
 
 	public int LayerToMask = 5; /* other towel men on this layer, they avoid each other */
-	public int straightAhead = 10; // how much to go in a given direction before turning
-	private int count;
 	private float obstacleRange = 0.3f; /* range of the angle to check for obstacles */
 	private string state; /* "wander", "start-rotation", "rotating" */
 
 	// Use this for initialization
 	void Start () {
 		flag = true;
-		state = "wander";
-		count = straightAhead;
+		state = "start-rotation";
 		StartCoroutine( doWander() );
 	}
 
 	// Wander behaviour
 	IEnumerator doWander() {
-		while (state=="wander" && count > 0) {
+		while (state=="wander") {
 			if (DEBUG) Debug.Log (" doing the wander ");
 			bool obstacles;
 			Vector2 direction = transform.up;
@@ -35,17 +32,11 @@ public class GBWander : MonoBehaviour {
 			obstacles = checkForObstacles(direction);
 			if (DEBUG) Debug.Log ("obstacles");
 			if (DEBUG) Debug.Log (obstacles);
-			if (!obstacles) {
-				if (DEBUG) Debug.Log ("moving forward");
-				transform.Translate(Vector2.up * speed * Time.smoothDeltaTime);
-			} else {
+			if (obstacles == true) {
 				if (DEBUG) Debug.Log ("rotating");
 				state = "start-rotation";
 				yield return null;
 			}
-
-			count--;
-			if (count == 0) state = "start-rotation";
 			yield return null;
 		}
 	}
@@ -115,10 +106,10 @@ public class GBWander : MonoBehaviour {
 	}
 
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 
 		if (enabled && flag) {
-			Debug.Log ("Wander is enabled");
+			if (DEBUG) Debug.Log ("Wander is enabled");
 			flag = false;
 		}
 
@@ -126,9 +117,11 @@ public class GBWander : MonoBehaviour {
 			if (DEBUG) Debug.Log ("state: " + state);
 			switch(state) {
 			case "start-rotation":
-				state = "rotate";
-				count = straightAhead;
+				state = "rotating";
 				StartCoroutine ( rotatePlayer () );
+				break;
+			case "wander":
+				rigidbody2D.AddForce(gameObject.transform.up * speed);
 				break;
 			}
 		}
