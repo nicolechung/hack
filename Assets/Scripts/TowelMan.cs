@@ -28,7 +28,6 @@ public class TowelMan : MonoBehaviour {
 
 		gameObject.layer = TOWEL_MAN_LAYER;
 
-
 	}
 	
 	// Update is called once per frame

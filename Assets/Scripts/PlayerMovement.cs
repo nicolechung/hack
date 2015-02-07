@@ -5,6 +5,15 @@ public class PlayerMovement : MonoBehaviour {
 
 	public float speed;
 	public string state = "go";
+	private string lockState = "not-locked";
+	protected Animator animator;
+
+	private CheckCollision _lockColliderObj;
+
+	void Start() 
+	{
+		animator = GetComponent<Animator>();
+	}
 
 	// using Physics, so use Fixed Update
 	void FixedUpdate() 
@@ -28,10 +37,9 @@ public class PlayerMovement : MonoBehaviour {
 	// keyboard
 
 	void Update() {
-		Debug.Log (state);
+
 		if ( (Input.GetKeyDown (KeyCode.LeftShift) || Input.GetKeyDown (KeyCode.RightShift) ) ) {
 			if (state=="go") {
-				Debug.Log ("shift pressed");
 				rigidbody2D.velocity = Vector2.zero;
 				rigidbody2D.angularVelocity = 0;
 				rigidbody2D.Sleep();
@@ -40,5 +48,17 @@ public class PlayerMovement : MonoBehaviour {
 				state="go";
 			}
 		} 
+
+		if ( Input.GetKeyDown (KeyCode.Space) ) {
+			if (lockState == "not-locked") {
+				animator.SetBool ("lock", true);
+				BroadcastMessage("checkForCollision");
+				lockState = "locked";
+			} else {
+				animator.SetBool ("lock", false);
+				BroadcastMessage("turnOffCollisionCheck");
+				lockState = "not-locked";
+			}
+		}
 	}
 }
