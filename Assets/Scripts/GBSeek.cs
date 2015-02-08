@@ -12,10 +12,10 @@ public class GBSeek : MonoBehaviour {
 	private string state;
 	private bool hasHitTarget;
 	private static bool DEBUG = true;
-	private static bool DEBUG_DRAW = true;
 	private List<Vector2> directions;
 	private float rotationRange = 5;
 	public int LayerToMask = 8;
+	private Vector2 seekDirection;
 
 
 	// Use this for initialization
@@ -30,9 +30,8 @@ public class GBSeek : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 		if (enabled && flag) {
-			Debug.Log ("Seek is enabled");
 			flag = false;
 		}
 
@@ -51,7 +50,10 @@ public class GBSeek : MonoBehaviour {
 				state = "rotate";
 				StartCoroutine (rotateAround ());
 				break;
-				
+
+			case "seek":
+				rigidbody2D.AddForce(seekDirection * speed);
+				break;
 			default: 
 				
 				break;
@@ -147,7 +149,7 @@ public class GBSeek : MonoBehaviour {
 		}
 		
 		
-		if (DEBUG_DRAW) {
+		if (DEBUG) {
 			Debug.DrawRay (transform.position, direction * collisionDistance, color);
 		}
 		
@@ -158,7 +160,7 @@ public class GBSeek : MonoBehaviour {
 		Vector2 leftOrigin = new Vector2 (transform.position.x, transform.position.y) + left;
 		directionLeft = direction + left;
 		hitsLeft = Physics2D.RaycastAll (leftOrigin, directionLeft, collisionDistance, 1 << LayerToMask);
-		if (DEBUG_DRAW) {
+		if (DEBUG) {
 			Debug.DrawRay (leftOrigin, directionLeft * collisionDistance, color);
 		}
 		
@@ -167,7 +169,7 @@ public class GBSeek : MonoBehaviour {
 		Vector2 rightOrigin = new Vector2 (transform.position.x, transform.position.y) + right;
 		directionRight = direction + right;
 		hitsRight = Physics2D.RaycastAll (rightOrigin, directionRight, collisionDistance, 1 << LayerToMask);
-		if (DEBUG_DRAW) {
+		if (DEBUG) {
 			Debug.DrawRay (rightOrigin, directionRight * collisionDistance, color);
 		}
 		
@@ -252,7 +254,9 @@ public class GBSeek : MonoBehaviour {
 				yield return null;
 			} else {
 				// usually when the seeker is right against the object, bump it out
-				transform.Translate (obstacle.normal * speed * Time.smoothDeltaTime);  
+				// transform.Translate (obstacle.normal * speed * Time.smoothDeltaTime); 
+				seekDirection = obstacle.normal;
+				state = "seek";
 				yield return null;
 			} 
 		}

@@ -9,7 +9,6 @@ public class GBWander : MonoBehaviour {
 	public float speed = 1;
 
 	private static bool DEBUG = false;
-	private static bool DEBUG_DRAW = false;
 
 	public int LayerToMask = 5; /* other towel men on this layer, they avoid each other */
 	private float obstacleRange = 0.3f; /* range of the angle to check for obstacles */
