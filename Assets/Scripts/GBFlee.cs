@@ -16,4 +16,22 @@ public class GBFlee : MonoBehaviour {
 			flag = false;
 		}
 	}
+
+	// set up Event Listeners
+	void onEnable() 
+	{
+		
+	}
+	
+	// remove Event Listeners
+	void onDisable() 
+	{
+		
+	}
+	
+	// remove Event Listeners
+	void onDestroy() 
+	{
+		
+	}
 }

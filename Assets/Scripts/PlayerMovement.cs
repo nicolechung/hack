@@ -61,4 +61,29 @@ public class PlayerMovement : MonoBehaviour {
 			}
 		}
 	}
+
+	// set up Event Listeners
+	void onEnable() 
+	{
+
+	}
+
+	// remove Event Listeners
+	void onDisable() 
+	{
+
+	}
+
+	// remove Event Listeners
+	void onDestroy() 
+	{
+
+	}
+
+
+	void StopMovement() {
+		rigidbody2D.velocity = Vector2.zero;
+		rigidbody2D.angularVelocity = 0;
+		rigidbody2D.Sleep();
+	}
 }

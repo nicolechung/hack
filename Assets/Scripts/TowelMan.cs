@@ -15,6 +15,7 @@ public class TowelMan : MonoBehaviour {
 	private GBWander wander;
 
 	private static int TOWEL_MAN_LAYER = 5;
+	
 
 	// Use this for initialization
 	void Start () {
@@ -47,5 +48,35 @@ public class TowelMan : MonoBehaviour {
 
 	public void Halt() {
 		Debug.Log ("lock behaviour");
+		wander.enabled = false;
+		StopMovement();
+	}
+
+	public void Resume() {
+		wander.enabled = true;
+	}
+
+	void StopMovement() {
+		rigidbody2D.velocity = Vector2.zero;
+		rigidbody2D.angularVelocity = 0;
+		rigidbody2D.Sleep();
+	}
+
+	// set up Event Listeners
+	void onEnable() 
+	{
+		
+	}
+	
+	// remove Event Listeners
+	void onDisable() 
+	{
+		
+	}
+	
+	// remove Event Listeners
+	void onDestroy() 
+	{
+		
 	}
 }

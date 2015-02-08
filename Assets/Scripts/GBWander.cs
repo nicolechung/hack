@@ -126,4 +126,22 @@ public class GBWander : MonoBehaviour {
 			}
 		}
 	}
+
+	// set up Event Listeners
+	void onEnable() 
+	{
+		
+	}
+	
+	// remove Event Listeners
+	void onDisable() 
+	{
+		
+	}
+	
+	// remove Event Listeners
+	void onDestroy() 
+	{
+		
+	}
 }
