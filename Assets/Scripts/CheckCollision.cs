@@ -5,6 +5,8 @@ public class CheckCollision : MonoBehaviour {
 
 	private bool checkCollision = false;
 
+	private TowelMan entrapped;
+
 	// Use this for initialization
 	void Start () {
 	
@@ -25,9 +27,11 @@ public class CheckCollision : MonoBehaviour {
 		checkCollision = false;
 	}
 
-	void OnTriggerEnter2D() {
+	void OnTriggerEnter2D(Collider2D other) {
 		if (checkCollision) {
 			Debug.Log ("something is in the Trigger zone");
+			entrapped = other.gameObject.GetComponent<TowelMan>();
+			entrapped.Halt();
 		}
 	}
 }

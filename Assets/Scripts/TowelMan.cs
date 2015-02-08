@@ -44,4 +44,8 @@ public class TowelMan : MonoBehaviour {
 		// seek 
 		Debug.Log ("seek behaviour");
 	}
+
+	public void Halt() {
+		Debug.Log ("lock behaviour");
+	}
 }
