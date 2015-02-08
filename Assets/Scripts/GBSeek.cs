@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class GBSeek : MonoBehaviour {
 
@@ -25,7 +26,7 @@ public class GBSeek : MonoBehaviour {
 		// start out seeking if the Target is within range
 		state = "seek";
 		hasHitTarget = false;
-		directions = new List<Vector2> ();
+		directions = new List<Vector2>();
 		StartCoroutine (Seek ());
 	}
 	

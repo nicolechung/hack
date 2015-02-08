@@ -80,6 +80,21 @@ public class PlayerMovement : MonoBehaviour {
 
 	}
 
+	void HaltActivity()
+	{
+		StartCoroutine( DoTheDance() );
+	}
+
+	private IEnumerator DoTheDance()
+	{
+		rigidbody2D.velocity = Vector2.zero;
+		rigidbody2D.angularVelocity = 0;
+		rigidbody2D.Sleep();
+		state = "stop";
+		yield return new WaitForSeconds(10);
+		state = "go";
+	}
+
 
 	void StopMovement() {
 		rigidbody2D.velocity = Vector2.zero;

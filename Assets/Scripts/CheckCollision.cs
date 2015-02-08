@@ -7,9 +7,11 @@ public class CheckCollision : MonoBehaviour {
 
 	private TowelMan entrapped;
 
+
+
 	// Use this for initialization
 	void Start () {
-	
+
 	}
 	
 	// Update is called once per frame
@@ -32,6 +34,8 @@ public class CheckCollision : MonoBehaviour {
 			Debug.Log ("something is in the Trigger zone");
 			entrapped = other.gameObject.GetComponent<TowelMan>();
 			entrapped.Halt();
+			SendMessageUpwards("HaltActivity");
+
 		}
 	}
 }
