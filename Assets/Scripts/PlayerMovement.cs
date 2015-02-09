@@ -96,6 +96,8 @@ public class PlayerMovement : MonoBehaviour {
 	}
 
 
+
+
 	void StopMovement() {
 		rigidbody2D.velocity = Vector2.zero;
 		rigidbody2D.angularVelocity = 0;
